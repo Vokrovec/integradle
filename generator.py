@@ -24,12 +24,12 @@ def generate_substitution_problem():
             case 2: F = F1*F2
             case 3: F = F1-F2
             case 4: F = F1/F2
-
+    F3 = random.choice(blocks1)
     # Differentiate to get the "problem"
     f = sp.simplify(sp.diff(F, x))
 
     # Simplify or expand to hide the structure
-    problem = F.subs(x, f) * f
+    problem = F3.subs(x, F) * f
     y = sp.Symbol('y')
     if problem == problem.subs(x, y): #if problem is constant
         return generate_substitution_problem()
