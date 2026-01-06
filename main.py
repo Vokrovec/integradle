@@ -5,6 +5,7 @@ from discord import ui
 import dotenv
 from generator import save_as_latex_image_io, generate_integral
 import random
+import datetime
 
 # --- Bot Setup ---
 intents = discord.Intents.default()
@@ -55,7 +56,7 @@ async def integral(ctx):
     
     # Generate the image in memory
     seed = random.randint(1, 100000000)
-    print(seed)
+    print(datetime.datetime.now(), seed)
     problem, answer = generate_integral(seed=seed)
     image = save_as_latex_image_io(problem)
     view = SolutionView(answer)
