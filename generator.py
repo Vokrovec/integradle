@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import io
 
 plt.rcParams.update({
-    "text.usetex": True,
-    "font.family": "serif"
+    "text.usetex": False,
+    "mathtext.fontset": "cm"
 })
 
 def generate_substitution_problem():
@@ -71,7 +71,7 @@ def save_as_latex_image_io(integral_obj):
     
     # Use Matplotlib to render the LaTeX
     plt.figure(figsize=(6, 3))
-    plt.text(0.5, 0.5, f"${latex_str}$", fontsize=24, ha='center', va='center')
+    plt.text(0.5, 0.5, f"${latex_str}$".replace("\\limits", ""), fontsize=24, ha='center', va='center')
     plt.axis('off')
     
     # Save with high DPI for clarity
