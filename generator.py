@@ -37,7 +37,9 @@ def generate_substitution_problem():
     to_ = random.randint(from_+1, 10)
     problem = sp.Integral(problem, (x, from_, to_))
     answer = sp.simplify(problem.doit())
-    return problem, answer #returns problem and its numerical solution
+    if answer.has(sp.nan) or answer.has(sp.oo):
+        return generate_substitution_problem()
+    return problem, answer #returns problem and its solution
 
 def generate_IBP_problem():
     #pick from blocks
@@ -55,7 +57,9 @@ def generate_IBP_problem():
     to_ = random.randint(from_+1, 10)
     problem = sp.Integral(problem, (x, from_, to_))
     answer = sp.simplify(problem.doit())
-    return problem, answer #returns problem and its numerical solution
+    if answer.has(sp.nan) or answer.has(sp.oo) or answer.has(sp.I):
+        return generate_substitution_problem()
+    return problem, answer #returns problem and its solution
 
 def generate_integral(seed=random.randint(1, 1000000000)):
     random.seed(seed)
@@ -87,7 +91,7 @@ def save_as_latex_image(integral_obj, filename="integral_problem.png"):
     
     # Use Matplotlib to render the LaTeX
     plt.figure(figsize=(6, 3))
-    plt.text(0.5, 0.5, f"${latex_str}$", fontsize=24, ha='center', va='center')
+    plt.text(0.5, 0.5, f"${latex_str}$".replace("\\limits", ""), fontsize=24, ha='center', va='center')
     plt.axis('off')
     
     # Save with high DPI for clarity
